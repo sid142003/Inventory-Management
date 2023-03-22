@@ -25,44 +25,25 @@
     #login:hover{
         background-color: black;
         color: white;
-                text-decoration: none;
-
     }
     #Signup:hover{
         background-color: black;
         color: white;
-                text-decoration: none;
+    }
+    {{!-- a:hover{
+        position: ;
+
+        font-size: 21px;
+    } --}}
+    #btn{
+        {{!-- border: 2px solid black; --}}
+        border-radius: 5px;
+    }
+    #btn:hover{
+        background-color: black;
+        color: white;
 
     }
-    #Signup{
-       
-    width: 20mm;
-    padding-top: 1mm;
-    padding-bottom: 1mm;
-    padding-left: 2mm;
-    padding-right: 2mm;
-    color: black;
-    background-color: white;
-    text-decoration: none;
-    margin: 1mm;
-    border: none;
-    display: flex;
-            }
-    #login{
-        
-    width: 20mm;
-    padding-top: 1mm;
-    padding-bottom: 1mm;
-    padding-left: 2mm;
-    padding-right: 2mm;
-    color: black;
-    background-color: white;
-    text-decoration: none;
-    margin: 1mm;
-    border: none;
-    display: flex;
-    }
-   
     </style>
 <body>
     <header class="bg-dark text-light py-3">
@@ -70,11 +51,9 @@
           <div class="a"><h1>Inventory Management System</h1></div>       
         
            
-           <div id="logincont" class="a"> 
-            <a href="/loginPage" id="login">Login<a/>
-    
+          
        
-       <a href="/SignupPage" id="Signup">Signup</a></div>
+        <div><button id="btn" >User</button></div>
          
          </div>
     </header>
@@ -82,10 +61,13 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             
-          
+            {{!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button> --}}
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                  <li class="nav-item active"> <a class="nav-link" href="#" >Home</a></li> 
+                  <li class="nav-item active"> <a class="nav-link" href="#">Home</a></li> 
                     <li class="nav-item active">
                         <a class="nav-link" href="a.html">Products</a>
                     </li>
@@ -119,7 +101,7 @@
                     <div class="card-body">
                         <p>Here, you can manage your products:</p>
                         <ul>
-                            <li><a href="/addproduct">Add a new product</a></li>
+                            <li><a href="#">Add a new product</a></li>
                             <li><a href="#">Edit a product</a></li>
                             <li><a href="#">Delete a product</a></li>
                         </ul>
@@ -145,10 +127,10 @@
                 <div class="card mb-4">
                     <div class="card-header">Search</div>
                     <div class="card-body">
-                        <form action="/searchInput" method="POST">
+                        <form>
                             <div class="form-group">
                                 <label for="searchInput">Search for a product:</label>
-                                <input type="text" class="form-control" id="searchInput" name="searchInput" placeholder="Product name...">
+                                <input type="text" class="form-control" id="searchInput" placeholder="Product name...">
                             </div>
                             <button type="submit" class="btn btn-primary">Search</button>
                         </form>
@@ -180,6 +162,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
+            <script>
+                const loginpage=
+                let Signup=document.getElementById("Signup")
+                Signup.innerHTML=
+            </script>
            
         </body>
         </html>
