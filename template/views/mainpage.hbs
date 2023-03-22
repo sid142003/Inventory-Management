@@ -62,6 +62,20 @@
     border: none;
     display: flex;
     }
+    #Submit{
+        
+    width: 20mm;
+    padding-top: 1mm;
+    padding-bottom: 1mm;
+    padding-left: 2mm;
+    padding-right: 2mm;
+    color: white;
+    background-color: blue;
+    text-decoration: none;
+    margin: 1mm;
+    border: none;
+    display: flex;
+    }
    
     </style>
 <body>
@@ -145,12 +159,12 @@
                 <div class="card mb-4">
                     <div class="card-header">Search</div>
                     <div class="card-body">
-                        <form action="/searchInput" method="POST">
+                        <form >
                             <div class="form-group">
                                 <label for="searchInput">Search for a product:</label>
                                 <input type="text" class="form-control" id="searchInput" name="searchInput" placeholder="Product name...">
                             </div>
-                            <button type="submit" class="btn btn-primary">Search</button>
+                         <a href="/a" id="Submit">Submit<a/>
                         </form>
                     </div>
                 </div>
@@ -180,6 +194,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-           
+           <script src="/js/main.js"></script>
         </body>
         </html>

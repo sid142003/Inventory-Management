@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 let alert = require('alert')
 //  var popups=require("pop")
 const app = express()
-const port = 80
+const port = 3000
 const path = require("path");
 const hbs = require("hbs");
 const Data = require("./model/model");
@@ -84,6 +84,9 @@ app.get("/SignupPage", (req, res) => {
 app.get("/addproduct", (req, res) => {
     res.render("addproduct")
 })
+app.get("/a", (req, res) => {
+    res.render("a")
+})
 
 
 // ADDPRODUCT
@@ -109,17 +112,17 @@ app.post("/addproduct", async (req, res) => {
         res.send(error);
     }
 })
-app.post("/searchInput", async (req, res) => {
+// app.post("/searchInput", async (req, res) => {
 
-    try {
-        const searchInput = req.body.searchInput;
-        const searchedInput = await addproduct.findOne({name: searchInput })
-        res.send(searchedInput)
+//     try {
+//         const searchInput = req.body.searchInput;
+//         const searchedInput = await addproduct.findOne({name: searchInput })
+//         res.send(searchedInput)
 
         
-    } catch (error) {
-        res.sendStatus(400)
-    }
+//     } catch (error) {
+//         res.sendStatus(400)
+//     }
    
     ;
     // res.send("searchedInput")
@@ -134,7 +137,7 @@ app.post("/searchInput", async (req, res) => {
         // }
 
    
-})
+// })
 
 
 
