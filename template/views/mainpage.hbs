@@ -20,21 +20,31 @@
     }
     #login{
         margin-right: 0px;
+        border-radius: 0.25rem;
     }
    
     #login:hover{
-        background-color: black;
+        background-color: #007bff;
         color: white;
                 text-decoration: none;
+                border: 1px solid transparent;
+                border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
 
     }
     #Signup:hover{
-        background-color: black;
+        background-color: #007bff;
         color: white;
                 text-decoration: none;
+                border: 1px solid transparent;
+                border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
 
     }
     #Signup{
+        border-radius: 0.25rem;
        
     width: 20mm;
     padding-top: 1mm;
@@ -134,8 +144,8 @@
                         <p>Here, you can manage your products:</p>
                         <ul>
                             <li><a href="/addproduct">Add a new product</a></li>
-                            <li><a href="#">Edit a product</a></li>
-                            <li><a href="#">Delete a product</a></li>
+                            <li><a href="/editproduct">Edit a product</a></li>
+                            <li><a href="/deleteProduct">Delete a product</a></li>
                         </ul>
                     </div>
                 </div>
@@ -159,12 +169,12 @@
                 <div class="card mb-4">
                     <div class="card-header">Search</div>
                     <div class="card-body">
-                        <form >
+                        <form  action="/info" method="POST" >
                             <div class="form-group">
                                 <label for="searchInput">Search for a product:</label>
                                 <input type="text" class="form-control" id="searchInput" name="searchInput" placeholder="Product name...">
                             </div>
-                         <a href="/a" id="Submit">Submit<a/>
+                     <button type="submit" id="searchp" class="btn btn-primary">Search</button> 
                         </form>
                     </div>
                 </div>

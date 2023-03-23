@@ -23,12 +23,22 @@
     }
    
     #login:hover{
-        background-color: black;
+        background-color:#007bff;
         color: white;
+          border: 1px solid transparent;
+                border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+
     }
     #Signup:hover{
-        background-color: black;
+        background-color:#007bff;
         color: white;
+          border: 1px solid transparent;
+                border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+
+
     }
     {{!-- a:hover{
         position: ;
@@ -101,9 +111,9 @@
                     <div class="card-body">
                         <p>Here, you can manage your products:</p>
                         <ul>
-                            <li><a href="#">Add a new product</a></li>
-                            <li><a href="#">Edit a product</a></li>
-                            <li><a href="#">Delete a product</a></li>
+                            <li><a href="/addproduct">Add a new product</a></li>
+                            <li><a href="/editproduct">Edit a product</a></li>
+                            <li><a href="/deleteproduct">Delete a product</a></li>
                         </ul>
                     </div>
                 </div>
@@ -127,12 +137,12 @@
                 <div class="card mb-4">
                     <div class="card-header">Search</div>
                     <div class="card-body">
-                        <form>
+                        <form action="/info" method="POST" >
                             <div class="form-group">
                                 <label for="searchInput">Search for a product:</label>
                                 <input type="text" class="form-control" id="searchInput" placeholder="Product name...">
                             </div>
-                            <button type="submit" class="btn btn-primary">Search</button>
+                       <button type="submit" id="searchp" class="btn btn-primary">Search</button> 
                         </form>
                     </div>
                 </div>
@@ -162,11 +172,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-            <script>
-                const loginpage=
-                let Signup=document.getElementById("Signup")
-                Signup.innerHTML=
-            </script>
-           
+           <script src="/js/main.js"></script>
         </body>
         </html>
