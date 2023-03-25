@@ -1,31 +1,41 @@
 // import { findOne } from "../../src/model/addproduct"
-// const a=document.getElementById("a")
-// const submitbtn=document.getElementById("")
+const Data = require("../src/model/model");
+const a=document.getElementById("a")
+const submitbtn=document.getElementById("submit")
 let b=document.getElementById("b")
+let abc=document.getElementById("abc")
 let c=document.getElementById("c")
-let searchp=document.getElementById("searchp")
+let searchp=document.getElementById("searchsomething")
 // import "../../src/db/db"
 
-const get_info= async (event)=>{
-    // event.preventDefault();
-    try {
-        // const searchInput = a.value;
-        // const searchedInput = await findOne({name: searchInput });
-        // const data=await searchedInput.json();
-        // // const arrdata=[data]
-        document.getElementById("a").innerHTML="apple";
-
-        // console.log(searchInput);
+const getinfo = async (event)=>{
+    event.preventDefault();
+    abc.innerText="apple" ;
+    // alert("ji")
+    // let userName=searchp.value;
+// const
 
 
-
+        // cardempty.innerText="please Enter The City Name";
         
-    } catch (error) {
-        console.log("error");
-    }
-   
-
+    
+    //     try {
+    //         let url=`http://localhost:3000/userData`
+    //         const  response = await fetch(url)
+    //         // const data=await response.json();
+    //         const arrdata=[response]
+    //         abc.innerText="apple" ;
+    
+    // b.innerText=arrdata[0].email ;
+    // // condition.innerText=arrdata[0].weather[0].main ;
+    // // console.log(data );
+    //     } catch (error) {
+    //     console.log("please Enter The Valid Things");
+    //     }
+       
+    
+    
 }
-get_info();
-searchp.addEventListener( 'click'  ,  get_info)
+getinfo();
+submitbtn.addEventListener('click' , getinfo)
 

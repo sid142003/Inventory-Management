@@ -189,6 +189,10 @@ app.post("/deleteproduct",  async (req,res)=>{
     
 })
 
+app.get("/userData" , async (req,res)=>{
+const UserData=await Data.find()
+res.send(UserData)
+})
 
 
 app.listen(port, function() {
