@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    table,
+    th,
+    td {
+        border: 1px solid black;
+    }
+</style>
+
+<body>
+
+    <h1>Product Details</h1>
+    <table style="width: 100%; height: 100%;" id="Table">
+        <tr>
+            <th id="1" >Name</th>
+
+        </tr>
+
+    </table>
+
+  
+    <script>
+
+        
+        const Table = document.getElementById("Table")
+
+       function insert_Row()
+{
+var x=document.getElementById('Table').insertRow(0);
+var y = x.insertCell(0);
+
+}
+       
+const a = document.getElementById("1")
+        const getinfo = async (event) => {
+            try {
+                let url = `http://localhost:3000/ProductData`
+                const response = await fetch(url)
+                const data = await response.json();
+                
+const array=new Array(data.length)
+for (let index = 0; index < data.length; index++) {
+
+
+    array[index]= (index+1) + "  )     " + data[index].name 
+}
+{{!-- console.log(array) --}}
+
+               
+                   {{!-- a. innerText=data[0].name  +" |  " + data[1].name +"  | " + data[2].name  --}}
+                  a.innerText=array.join('    ')             
+
+     
+
+
+
+            } catch (error) {
+                console.log("please Enter The Valid Things");
+            }
+
+
+
+        }
+        getinfo();
+    </script>
+</body>
+
+</html>

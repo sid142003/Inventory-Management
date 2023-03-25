@@ -27,6 +27,7 @@ app.get("/", (req, res) => {
 app.post("/entry", async (req, res) => {
     try {
 
+    const Sname=req.body.name
         const password = req.body.password;
         const conf_password = req.body.conf_password;
         if (password === conf_password) {
@@ -38,12 +39,12 @@ app.post("/entry", async (req, res) => {
 
             });
 
-            const token= await empData.generateAuthToken();
+
 
             const postData = await empData.save();
 
             alert(" Form submitted successfully")
-            res.render("mainpage2");
+            res.render("mainpage2"  , {Sname});
 
         }
         else {
@@ -61,6 +62,7 @@ app.post("/entry", async (req, res) => {
 app.post("/login", async (req, res) => {
     try {
         const emailnew = req.body.emailnew;
+        const Sname = req.body.name;
         const password = req.body.passwordnew;
         const useremail = await Data.findOne({ email: emailnew })
     const  ismatch = await  bcrypt.compare(password, useremail.password)
@@ -69,7 +71,7 @@ app.post("/login", async (req, res) => {
     // console.log(useremail);
     // console.log(ismatch);
         if (ismatch) {
-            res.render("mainpage2")
+            res.render("mainpage2" , {Sname} )
         } else {
             res.send("Password Not Matching")
         }
@@ -99,6 +101,9 @@ app.get("/deleteproduct", (req, res) => {
 })
 app.get("/viewallproducts", (req, res) => {
     res.render("viewallproducts")
+})
+app.get("/gettotalproducts", (req, res) => {
+    res.render("gettotalproducts")
 })
 // ADDPRODUCT
 app.post("/addproduct", async (req, res) => {
