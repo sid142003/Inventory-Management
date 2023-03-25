@@ -97,8 +97,8 @@ app.get("/deleteproduct", (req, res) => {
 app.get("/deleteproduct", (req, res) => {
     res.render("deleteproduct")
 })
-app.get("/a", (req, res) => {
-    res.render("a")
+app.get("/viewallproducts", (req, res) => {
+    res.render("viewallproducts")
 })
 // ADDPRODUCT
 app.post("/addproduct", async (req, res) => {
@@ -177,6 +177,15 @@ app.post("/editproduct",  async (req,res)=>{
     res.render("mainpage")
     
 })
+
+app.post("/viewallproducts",  async (req,res)=>{
+
+    const Sname=req.body.searchInput;
+
+
+    res.render('viewallproducts',{Sname})
+    
+})
 app.post("/deleteproduct",  async (req,res)=>{
 
     const Sname=req.body.name;
@@ -189,10 +198,12 @@ app.post("/deleteproduct",  async (req,res)=>{
     
 })
 
-app.get("/userData" , async (req,res)=>{
-const UserData=await Data.find()
+
+app.get("/ProductData" , async (req,res)=>{
+const UserData=await addproduct.find()
 res.send(UserData)
 })
+
 
 
 app.listen(port, function() {
