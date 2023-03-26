@@ -1,6 +1,8 @@
 const express = require("express");
+const helmet=require("helmet")
 const jwt=require("jsonwebtoken")
 const bcrypt = require('bcryptjs')
+const cookie_parser=require('cookie-parser')
 let alert = require('alert')
 //  var popups=require("pop")
 const app = express()
@@ -20,9 +22,20 @@ require('./db/db')
 app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static('../public'));
+// app.use(helmet());
+app.use(cookie_parser()); 
 
-app.get("/", (req, res) => {
-    res.render("mainpage")
+app.get("/",    async (req, res) => {
+   const Sname = await req.cookies.Sname;
+// //    console.log(Sname);
+if ( Sname ) {
+ res.render("mainpage2",{Sname})
+} else {
+    console.log(req.cookies);
+    res.render("mainpage" )
+}
+
+    
 })
 app.post("/entry", async (req, res) => {
     try {
@@ -35,15 +48,18 @@ app.post("/entry", async (req, res) => {
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password,
+              
                 conf_password: req.body.conf_password
 
             });
+            res.cookie("Sname", `${req.body.name}`)
+            res.cookie("email", `${req.body.email}`)
+           
 
-
-
+ 
             const postData = await empData.save();
 
-            alert(" Form submitted successfully")
+            alert(" Registered Successfully")
             res.render("mainpage2"  , {Sname});
 
         }
@@ -107,7 +123,7 @@ app.get("/gettotalproducts", (req, res) => {
 })
 // ADDPRODUCT
 app.post("/addproduct", async (req, res) => {
-    console.log("H")
+    
     try {
 
        
