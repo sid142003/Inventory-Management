@@ -1,10 +1,12 @@
 const express = require("express");
-const helmet=require("helmet")
+
+
+
 const jwt=require("jsonwebtoken")
 const bcrypt = require('bcryptjs')
 const cookie_parser=require('cookie-parser')
 let alert = require('alert')
-//  var popups=require("pop")
+
 const app = express()
 const port = 3000
 const path = require("path");
@@ -12,6 +14,18 @@ const hbs = require("hbs");
 const Data = require("./model/model");
 const addproduct=require("./model/addproduct")
 // const editproduct=require("./model/")
+
+
+
+
+
+
+
+
+
+
+
+
 
 const template_path = path.join(__dirname, "../template/views");
 app.set('view engine', 'hbs')
@@ -25,6 +39,7 @@ app.use(express.static('../public'));
 // app.use(helmet());
 app.use(cookie_parser()); 
 
+
 app.get("/",    async (req, res) => {
    const Sname = await req.cookies.Sname;
 // //    console.log(Sname);
@@ -34,6 +49,10 @@ if ( Sname ) {
     console.log(req.cookies);
     res.render("mainpage" )
 }
+
+app.get('/mainpage',(req, res)=>{
+    res.render("mainpage")
+})
 
     
 })
@@ -52,8 +71,15 @@ app.post("/entry", async (req, res) => {
                 conf_password: req.body.conf_password
 
             });
-            res.cookie("Sname", `${req.body.name}`)
-            res.cookie("email", `${req.body.email}`)
+            res.cookie("Sname", Sname ,{
+                maxAge: 5000,
+                // expires works the same as the maxAge
+                expires: new Date('01 12 2021'),
+                secure: true,
+                httpOnly: true,
+                sameSite: 'lax'
+            })
+             
            
 
  
@@ -78,7 +104,7 @@ app.post("/entry", async (req, res) => {
 app.post("/login", async (req, res) => {
     try {
         const emailnew = req.body.emailnew;
-        const Sname = req.body.name;
+        
         const password = req.body.passwordnew;
         const useremail = await Data.findOne({ email: emailnew })
     const  ismatch = await  bcrypt.compare(password, useremail.password)
@@ -86,6 +112,10 @@ app.post("/login", async (req, res) => {
     // console.log(password);
     // console.log(useremail);
     // console.log(ismatch);
+        const Sname = useremail.name    
+        console.log(Sname);
+        res.cookie("Sname",Sname)
+
         if (ismatch) {
             res.render("mainpage2" , {Sname} )
         } else {
@@ -121,8 +151,13 @@ app.get("/viewallproducts", (req, res) => {
 app.get("/gettotalproducts", (req, res) => {
     res.render("gettotalproducts")
 })
+app.get("/mainpage", (req, res) => {
+    res.clearCookie("Sname" , "email")
+    res.render("mainpage")
+})
 // ADDPRODUCT
 app.post("/addproduct", async (req, res) => {
+    const Cname = await req.cookies.Sname;
     
     try {
 
@@ -138,8 +173,7 @@ app.post("/addproduct", async (req, res) => {
             const postData = await adddata.save();
 
             alert(" Data Added Successfully")
-            res.render("mainpage2");
-
+            res.render("mainpage2" ,{Cname} )
     } catch (error) {
         res.send(error);
     }
@@ -187,7 +221,7 @@ app.post("/info", async (req, res) => {
 
 
 app.post("/editproduct",  async (req,res)=>{
-
+    const Cname = await req.cookies.Sname;
     const Sname=req.body.name;
     const available=req.body.available;
     const price=req.body.price;
@@ -195,7 +229,7 @@ app.post("/editproduct",  async (req,res)=>{
     const searchdata=await  addproduct.findOneAndUpdate({name:Sname} , {$set:{name:Sname , available:available , price:price}})
     
     alert("Data Updated")
-    res.render("mainpage")
+    res.render("mainpage2" ,{Cname} )
     
 })
 
@@ -210,12 +244,12 @@ app.post("/viewallproducts",  async (req,res)=>{
 app.post("/deleteproduct",  async (req,res)=>{
 
     const Sname=req.body.name;
-   
+    const Cname = await req.cookies.Sname;
 
     const searchdata=await  addproduct.findOneAndDelete({name:Sname} )
+    res.render("mainpage2" ,{Cname} )
     
     alert("Data Deleted")
-    res.render("mainpage")
     
 })
 
