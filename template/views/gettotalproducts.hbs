@@ -11,65 +11,184 @@
     table,
     th,
     td {
-        border: 1px solid black;
+        border: 2px solid black;
+        color:white;
+        padding: 10px;
     }
+    #Table{
+        margin: 20px;
+        padding: 20px;
+       
+    }
+    #Table2{
+        margin: 20px;
+        padding: 20px;
+       
+    }
+    #availablef #Price{
+        margin: 20px;
+        {{!-- padding: 20px; --}}
+      
+    }
+    .container{
+        margin: 15px;
+        {{!-- padding: 265px; --}}
+    }
+    h1 , h3{
+        text-align: center;
+        text-decoration: solid;
+        
+    }
+    #form{
+        
+        display: flex;
+        justify-content:
+       space-around
+
+    }
+
 </style>
 
 <body>
 
-    <h1>Product Details</h1>
-    <table style="width: 100%; height: 100%;" id="Table">
-        <tr>
-            <th id="1" >Name</th>
+    <h1>List Of Products</h1>
+<div class="container">
+<H3 style="margin-left: 20px;" > FILTERS </H3>
+     <form  action="/gettotalproducts/filters" , method="POST" id="form" >
+        <div><label for="availablef">Availability :  </label>
+    <input type="text" name="availablef" id="availablef"></div>
 
-        </tr>
+        <div><label for="Price">Price :  </label>
+    <input type="number" name="Price" id="Price"></div>
+    <div><button  >Submit</button></div>   
+  
 
+</form >
+    
+    <table style="width: 80%; height: 100%;" id="Table" cell-padding="5px"  border="1"  >
+      <th id="1" >NAME</th>  
+      <th  id="2">PRICE</th>  
+      <th  id="3">AVAILABILITY</th>  
+      
     </table>
+
+</div>
+   
+
+
+
+    
 
   
     <script>
 
         
         const Table = document.getElementById("Table")
+        const Table2 = document.getElementById("Table2")
+        const one = document.getElementById("1")
+        const Two = document.getElementById("2")
+        const Three = document.getElementById("3")
+        const availablef = document.getElementById("availablef")
+        const Price = document.getElementById("Price")
 
-       function insert_Row()
-{
-var x=document.getElementById('Table').insertRow(0);
-var y = x.insertCell(0);
-
-}
+        const availablefdata = availablef.value;
+        console.log(availablefdata)
+ const renderDataInTheTable = (data) => {
+                    data.forEach((element) => {
+                        const tr = document.createElement("tr");
+                        const td = document.createElement("td");
+                        const td1 = document.createElement("td");
+                        const td2 = document.createElement("td");
+                        td.innerText = element.name;    
+                        td1.innerText = element.price;    
+                        td2.innerText = element.available;    
+                        
+                        tr.appendChild(td);
+                        tr.appendChild(td1);
+                        tr.appendChild(td2);
+                        Table.appendChild(tr);
+                        Table.style.borderCollapse = "collapse";
+                        Table.style.backgroundColor = "#008E97  ";
+                  
+                    });
+                }
+      
+ const renderInTheTable = (data) => {
+                    data.forEach((element) => {
+                        const tr = document.createElement("tr");
+                        const td = document.createElement("td");
+                        const td1 = document.createElement("td");
+                        const td2 = document.createElement("td");
+                        td.innerText = element.name;    
+                        td1.innerText = element.price;    
+                        td2.innerText = element.available;    
+                        
+                        tr.appendChild(td);
+                        tr.appendChild(td1);
+                        tr.appendChild(td2);
+                        Table2.appendChild(tr);
+                        Table2.style.borderCollapse = "collapse";
+                        Table2.style.backgroundColor = "#008E97  ";
+                  
+                    });
+                }
+      
        
 const a = document.getElementById("1")
         const getinfo = async (event) => {
+
+            
             try {
                 let url = `http://localhost:3000/ProductData`
                 const response = await fetch(url)
                 const data = await response.json();
-                
-const array=new Array(data.length)
-for (let index = 0; index < data.length; index++) {
-
-
-    array[index]= (index+1) + "  )     " + data[index].name 
-}
-{{!-- console.log(array) --}}
-
                
-                   {{!-- a. innerText=data[0].name  +" |  " + data[1].name +"  | " + data[2].name  --}}
-                  a.innerText=array.join('    ')             
 
+
+            let array = []
+            let array2 = []
+let i=0;
+                              
+                               
+ await data.forEach(element=>{
+                        if(element.available==='{{availablef}}' && element.price>='{{Price}}'){
+                              array[i] = element
+                           
+                                                   }
+                              
+                             else{
+                                array2[i] = element
+                             }
+                              i++                                                   
+           
+        }
      
+        )
+       
+if(array.length===0){
+    renderDataInTheTable(data)}
+    else if(array.length!=0){
+            renderDataInTheTable(array)}
+            {{!-- else{
+
+
+            } --}}
+             
+
+ 
+              
+
 
 
 
             } catch (error) {
-                console.log("please Enter The Valid Things");
-            }
+                console.log("please Enter The Valid Things"  );
+             } }
 
 
-
-        }
         getinfo();
+        
+       
     </script>
 </body>
 

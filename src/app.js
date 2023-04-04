@@ -1,6 +1,7 @@
 const express = require("express");
-
-
+const nodemailer = require('nodemailer')
+const {EMAIL, PASSWORD} = require('../src/env')
+const mailgen=require('mailgen')
 
 const jwt=require("jsonwebtoken")
 const bcrypt = require('bcryptjs')
@@ -46,7 +47,7 @@ app.get("/",    async (req, res) => {
 if ( Sname ) {
  res.render("mainpage2",{Sname})
 } else {
-    console.log(req.cookies);
+   
     res.render("mainpage" )
 }
 
@@ -71,13 +72,13 @@ app.post("/entry", async (req, res) => {
                 conf_password: req.body.conf_password
 
             });
-            res.cookie("Sname", Sname ,{
+         res.cookie("Sname", Sname ,{
                 maxAge: 5000,
                 // expires works the same as the maxAge
                 expires: new Date('01 12 2021'),
                 secure: true,
                 httpOnly: true,
-                sameSite: 'lax'
+            
             })
              
            
@@ -108,12 +109,9 @@ app.post("/login", async (req, res) => {
         const password = req.body.passwordnew;
         const useremail = await Data.findOne({ email: emailnew })
     const  ismatch = await  bcrypt.compare(password, useremail.password)
-    // console.log(emailnew);
-    // console.log(password);
-    // console.log(useremail);
-    // console.log(ismatch);
+    
         const Sname = useremail.name    
-        console.log(Sname);
+        
         res.cookie("Sname",Sname)
 
         if (ismatch) {
@@ -142,14 +140,18 @@ app.get("/editproduct", (req, res) => {
 app.get("/deleteproduct", (req, res) => {
     res.render("deleteproduct")
 })
-app.get("/deleteproduct", (req, res) => {
-    res.render("deleteproduct")
-})
+
 app.get("/viewallproducts", (req, res) => {
     res.render("viewallproducts")
 })
 app.get("/gettotalproducts", (req, res) => {
     res.render("gettotalproducts")
+})
+app.get("/gettotalproducts/filters", (req, res) => {
+    res.render("gettotalproducts")
+})
+app.get("/PlaceOrder", (req, res) => {
+    res.render("PlaceOrder")
 })
 app.get("/mainpage", (req, res) => {
     res.clearCookie("Sname" , "email")
@@ -236,9 +238,14 @@ app.post("/editproduct",  async (req,res)=>{
 app.post("/viewallproducts",  async (req,res)=>{
 
     const Sname=req.body.searchInput;
-
-
+    const searchedInput = await addproduct.findOne({name: Sname });
+if (searchedInput) {
     res.render('viewallproducts',{Sname})
+} else {
+    alert("product not found")
+}
+
+   
     
 })
 app.post("/deleteproduct",  async (req,res)=>{
@@ -257,6 +264,96 @@ app.post("/deleteproduct",  async (req,res)=>{
 app.get("/ProductData" , async (req,res)=>{
 const UserData=await addproduct.find()
 res.send(UserData)
+})
+
+
+
+// PLACING ORDER
+app.post("/PlaceOrder" , (req, res)=>{
+ const Sname= req.cookies.Sname
+const name=req.body.name
+const email=req.body.email
+const quantity=req.body.quantity
+const Item=req.body.item
+
+const address=req.body.address
+
+let config = {
+    service: 'gmail',
+    auth : {
+        user: EMAIL,
+        pass: PASSWORD
+    }
+}
+
+
+let transporter = nodemailer.createTransport(config);
+
+let MailGenerator = new mailgen({
+    theme: "default",
+    product : {
+        name: "Mailgen",
+        link : 'https://mailgen.js/'
+    }
+})
+
+
+
+let response = {
+    body:{
+        name:'Notify',
+        table:{
+            data: [
+                {
+                    Name: name,
+                  Quantity: quantity,
+                    Item: Item,
+                    Address: address
+                }
+            ]
+        }
+    },
+}
+
+let mail = MailGenerator.generate(response)
+
+let message = {
+    from : EMAIL,
+    to : email,
+    subject: " Order",
+    html: mail
+}
+
+transporter.sendMail(message).then(() => {
+    // return res.status(201).json({
+    //     msg: "you should receive an email"
+   
+   
+    // })
+    res.render("mainpage2" , {Sname})
+}).catch(error => {
+    return res.status(500).json({ error })
+})
+})
+
+
+
+app.post("/gettotalproducts/filters", async (req, res) => {
+  const  availablef = req.body.availablef;
+  const  Price = req.body.Price;
+  const searchedInput = await addproduct.findOne({ available : availablef });
+  const total = await addproduct.find({ available : availablef });
+  
+
+let arr=[searchedInput , total]
+  res.render("gettotalproducts", {availablef , Price })
+//   if (searchedInput) {
+//   }
+//    else  {
+//     alert("Data Not Found")
+//   }
+  
+    
 })
 
 

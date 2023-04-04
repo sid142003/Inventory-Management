@@ -42,12 +42,12 @@ const c=document.getElementById("c")
             const data=await response.json();
           {{!-- console.log(data) --}}
             await data.forEach(element=>{
-                        if(element.name==='{{Sname}}'){
+                        if(element.name==='{{Sname}}' ){
                                a.innerText=element.name
                                b.innerText=element.available
                                c.innerText=element.price
                                                      }
-                                                     
+                                                    
            
         })
 
