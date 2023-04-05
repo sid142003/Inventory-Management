@@ -8,6 +8,10 @@
     <title>Document</title>
 </head>
 <style>
+   body{
+     margin: 0px;   
+     padding: 0px;
+    }
     table,
     th,
     td {
@@ -16,27 +20,32 @@
         padding: 10px;
     }
     #Table{
-        margin: 20px;
-        padding: 20px;
+        margin-top: 20px;
+        {{!-- padding: 20px; --}}
        
     }
-    #Table2{
-        margin: 20px;
-        padding: 20px;
-       
-    }
+   
     #availablef #Price{
         margin: 20px;
-        {{!-- padding: 20px; --}}
+       
       
     }
     .container{
-        margin: 15px;
-        {{!-- padding: 265px; --}}
+        margin: 20px;
+       
     }
-    h1 , h3{
-        text-align: center;
-        text-decoration: solid;
+    h1{
+         text-align: center;
+  text-decoration: solid;
+  color: white;
+  background-color: #008E97;
+        
+    }
+    h3{
+         text-align: center;
+  color: white;
+  background-color: #008E97;
+  {{!-- text-decoration: solid; --}}
         
     }
     #form{
@@ -50,10 +59,10 @@
 </style>
 
 <body>
-
-    <h1>List Of Products</h1>
 <div class="container">
-<H3 style="margin-left: 20px;" > FILTERS </H3>
+    <h1>List Of Products</h1>
+
+<h3  >FILTERS</h3>
      <form  action="/gettotalproducts/filters" , method="POST" id="form" >
         <div><label for="availablef">Availability :  </label>
     <input type="text" name="availablef" id="availablef"></div>
@@ -65,7 +74,7 @@
 
 </form >
     
-    <table style="width: 80%; height: 100%;" id="Table" cell-padding="5px"  border="1"  >
+    <table style="width: 100%; height: 100%;" id="Table" cell-padding="5px"  border="1"  >
       <th id="1" >NAME</th>  
       <th  id="2">PRICE</th>  
       <th  id="3">AVAILABILITY</th>  
